@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getBlogs } from "../libs/microcms";
+import { getBlogArticle } from "../libs/microcms";
+
+export async function getStaticPaths() {
+    const response = await getBlogs({ fields: ["id"] });
+
+    return response.contents.map((blog: any) => ({
+        params: {
+            blogId: blog.id,
+        },
+    }));
+}
+
+const { blogId } = Astro.params;
+const blog = await getBlogArticle(blogId as string);
+---
+
+<Layout title="Blog Page">
+    <main>
+        <h1>{blog.title}</h1>
+        <p>publishedAt: {new Date(blog.publishedAt).toLocaleString()}</p>
+        <div set:html={blog.content}></div>
+    </main>
+</Layout>
+
+<style>
+    main {
+        margin: auto;
+        padding: 1rem;
+        max-width: 60ch;
+    }
+
+    p {
+        font-size: 14px;
+        color: gray;
+    }
+</style>
