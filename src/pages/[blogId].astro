@@ -18,22 +18,69 @@ const blog = await getBlogArticle(blogId as string);
 ---
 
 <Layout title="Blog Page">
-    <main>
-        <h1>{blog.title}</h1>
-        <p>publishedAt: {new Date(blog.publishedAt).toLocaleString()}</p>
-        <div set:html={blog.content}></div>
+    <main class="p-5 mx-auto w-full max-w-screen-lg">
+        <h1 class="my-4 text-3xl text-black font-bold">{blog.title}</h1>
+        <p class="text-sm text-gray-500">publishedAt: {new Date(blog.publishedAt).toLocaleString()}</p>
+        <div class="entry mt-8" set:html={blog.content}></div>
     </main>
 </Layout>
 
 <style>
-    main {
-        margin: auto;
-        padding: 1rem;
-        max-width: 60ch;
+    .entry :global(h1) {
+        @apply pb-2 my-8 text-3xl font-bold text-indigo-700 border-b border-blue-500
     }
 
-    p {
-        font-size: 14px;
-        color: gray;
+    .entry :global(h2) {
+        @apply pb-1 my-8 text-2xl font-semibold text-indigo-500 border-b border-blue-500
+    }
+
+    .entry :global(h3) {
+        @apply my-4 text-xl font-medium text-indigo-400
+    }
+
+    .entry > :global(p) {
+        @apply py-3 text-base 
+    }
+
+    .entry :global(img) {
+        @apply mx-auto w-[80%] rounded-3xl
+    }
+
+    .entry :global(figcaption) {
+        @apply py-2 mx-auto w-[80%] text-slate-700 text-center
+    }
+
+    .entry :global(ul) {
+        @apply py-5;
+        list-style: inside;
+    }
+
+    .entry :global(ol) {
+        @apply py-5;
+        list-style: decimal;
+    }
+
+    .entry :global(li) {
+        @apply py-1 text-base
+    }
+
+    .entry :global(blockquote) {
+        @apply px-5 my-5 border-l-4 border-slate-400
+    }
+
+    .entry :global(table) {
+        @apply table-auto mx-auto my-10 max-w-[800px]
+    }
+
+    .entry :global(tr) {
+        @apply border-y border-slate-700 bg-slate-200
+    }
+
+    .entry :global(th, td) {
+        @apply px-6 py-4
+    }
+
+    .entry :global(th>p, td>p) {
+        @apply text-base
     }
 </style>
