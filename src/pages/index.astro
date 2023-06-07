@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon";
 import Layout from "../layouts/Layout.astro";
 import { getBlogs } from "../libs/microcms";
 
@@ -6,63 +7,52 @@ const response = await getBlogs({ fields: ["id", "title"] });
 ---
 
 <Layout title="Astro Blog">
-	<main>
-		<h1>Astro Blog</h1>
-		<ul>
-			{
-				response.contents.map((blog: any) => (
+	<main class="py-5 mx-auto w-full max-w-screen-lg">
+		<div id="hero" class="flex flex-col lg:flex-row">
+			<div
+				class="bg-gradient-to-br from-green-400 to-sky-400 py-10 h-max w-full"
+			>
+				<h1 class="text-4xl font-semibold text-white text-center">
+					Astro Blog
+				</h1>
+				<img class="mx-auto my-5 h-40 w-40" src="https://avatars.githubusercontent.com/u/102217304?v=4" alt="">
+				<p class="mx-auto my-8 w-4/5 text-xl text-white text-center">
+					Hello, I'm hengineer!<br />
+					I Like to code with JavaScript
+				</p>
+				<ul class="mx-auto w-max flex gap-10">
 					<li>
-						<a href={blog.id}>{blog.title}</a>
+						<a href="https://github.com/hengin-eer"
+							><Icon
+								class="p-1 h-12 w-12 rounded-full bg-blue-500 text-white"
+								name="mdi:github"
+							/></a
+						>
 					</li>
-				))
-			}
-		</ul>
+					<li>
+						<a href="https://twitter.com/tim_daik"
+							><Icon
+								class="p-1 h-12 w-12 rounded-full bg-blue-500 text-white"
+								name="mdi:twitter"
+							/></a
+						>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="posts" class="border-b-2 border-blue-400 box-border py-20 ">
+			<div class="pb-10 text-4xl text-indigo-600 text-center">Posts</div>
+			<ul class="px-5 flex flex-col items-start gap-2">
+				{
+					response.contents.map((blog: any) => (
+						<li>
+							<a href={blog.id}>{blog.title}</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
 	</main>
 </Layout>
 
-<style>
-	body {
-		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-		color: #c88e8e;
-		line-height: 1.6;
-		height: 100vh;
-		margin: 0;
-		padding: 0;
-		margin-top: 70px;
-	}
-
-	main {
-		margin: auto;
-		padding: 1em;
-		max-width: 60ch;
-		background-color: #dbdbdb;
-		box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
-		border-radius: 5px;
-	}
-
-	h1 {
-		font-size: 2.5em;
-		color: #334257;
-		text-align: center;
-	}
-
-	ul {
-		padding: 0;
-		list-style-type: none;
-	}
-
-	li {
-		margin-bottom: 10px;
-	}
-
-	a {
-		color: #6884bd;
-		text-decoration: none;
-		font-weight: 600;
-	}
-
-	a:hover {
-		color: #25603a;
-		text-decoration: underline;
-	}
-</style>
+<style></style>
